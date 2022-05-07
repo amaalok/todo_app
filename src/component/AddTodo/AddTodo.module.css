@@ -1,0 +1,19 @@
+.addTodo {
+  color: rgba(175, 47, 47, 0.15);
+  font-weight: 100;
+  font-size: 100px;
+  text-align: center;
+}
+.inputTodo {
+  padding: 16px 16px 16px 60px;
+  border: none;
+  background: rgba(0, 0, 0, 0.009);
+  font-size: 24px;
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+}
+.inputTodo::placeholder {
+  color: rgb(209, 201, 201);
+}
