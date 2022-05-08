@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../Button/Button";
 import { useSelector } from "react-redux";
 import TodoItem from "../TodoItem/TodoItem";
 
@@ -6,13 +7,36 @@ const TodoList = () => {
   const todos = useSelector((state: any) => {
     return state.todo;
   });
-  console.log(todos);
+  const leftTodo = useSelector((state: any) => {
+    return state.todo.filter((todo: any) => todo.completed === false);
+  });
+  const completedTodo = useSelector((state: any) => {
+    return state.todo.filter((todo: any) => todo.completed === true);
+  });
+  let completedFlag = false;
+  if (completedTodo.length > 0) {
+    completedFlag = true;
+  }
   return (
-    <ul className="tasks-list">
+    <div className="tasks-list">
       {todos.map((todo: any) => (
-        <TodoItem id={todo.id} title={todo.name} completed={todo.status} />
+        <TodoItem
+          key={todo.id}
+          id={todo.id}
+          title={todo.name}
+          status={todo.completed}
+        />
       ))}
-    </ul>
+      {todos.length > 0 && (
+        <div>
+          <p>{`${leftTodo.length} items left`}</p>
+          <Button type="All" />
+          <Button type="Active" />
+          <Button type="Completed" />
+          {completedFlag && <Button type="Clear Completed" />}
+        </div>
+      )}
+    </div>
   );
 };
 

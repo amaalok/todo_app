@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteTodo } from "../../redux/todoSlice";
+import { deleteTodo, updateTodoStatus } from "../../redux/todoSlice";
+import classes from "./TodoItem.module.css";
 
 const TodoItem = (props: any) => {
   const dispatch = useDispatch();
@@ -12,21 +13,34 @@ const TodoItem = (props: any) => {
       })
     );
   };
-
+  const handleCompleteClick = () => {
+    dispatch(
+      updateTodoStatus({
+        id: props.id,
+        completed: !props.status,
+      })
+    );
+  };
   return (
-    <li className="task-item">
-      <div>{props.title}</div>
-      <div>
-        <button
-          className="remove-task-button"
-          onClick={() => {
-            removeTask();
-          }}
-        >
-          X
-        </button>
+    <div className={classes.items}>
+      <div className={classes["items-name"]}>
+        <input
+          type="checkbox"
+          id={classes.checkbox}
+          onChange={handleCompleteClick}
+          checked={props.status ? true : false}
+        />
+        <label>{props.title}</label>
       </div>
-    </li>
+      <button
+        className={classes["remove-task-button"]}
+        onClick={() => {
+          removeTask();
+        }}
+      >
+        X
+      </button>
+    </div>
   );
 };
 
