@@ -1,39 +1,53 @@
-import React from "react";
-import Button from "../Button/Button";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import TodoItem from "../TodoItem/TodoItem";
+import classes from "./TodoList.module.css";
 
 const TodoList = () => {
-  const todos = useSelector((state: any) => {
+  let todos = useSelector((state: any) => {
     return state.todo;
   });
+  const [showTodo, setShowTodo] = useState(todos);
   const leftTodo = useSelector((state: any) => {
     return state.todo.filter((todo: any) => todo.completed === false);
   });
   const completedTodo = useSelector((state: any) => {
     return state.todo.filter((todo: any) => todo.completed === true);
   });
-  let completedFlag = false;
-  if (completedTodo.length > 0) {
-    completedFlag = true;
-  }
+  const completedFlag = completedTodo.length > 0 ? true : false;
+  const showCompleted = () => {
+    setShowTodo(completedTodo);
+  };
+  const showActive = () => {
+    setShowTodo(leftTodo);
+  };
+  const showAllTodo = () => {
+    setShowTodo(todos);
+  };
+  const renderedListItem = showTodo.map((todo: any) => {
+    return (
+      <TodoItem
+        key={todo.id}
+        id={todo.id}
+        title={todo.name}
+        status={todo.completed}
+      />
+    );
+  });
   return (
     <div className="tasks-list">
-      {todos.map((todo: any) => (
-        <TodoItem
-          key={todo.id}
-          id={todo.id}
-          title={todo.name}
-          status={todo.completed}
-        />
-      ))}
+      {renderedListItem}
       {todos.length > 0 && (
         <div>
-          <p>{`${leftTodo.length} items left`}</p>
-          <Button type="All" />
-          <Button type="Active" />
-          <Button type="Completed" />
-          {completedFlag && <Button type="Clear Completed" />}
+          <p
+            className={classes["todo-count"]}
+          >{`${leftTodo.length} items left`}</p>
+          <div className={classes.actions}>
+            <p onClick={showAllTodo}>All</p>
+            <p onClick={showActive}>Active</p>
+            <p onClick={showCompleted}>Completed</p>
+            {completedFlag && <p>Clear Completed</p>}
+          </div>
         </div>
       )}
     </div>

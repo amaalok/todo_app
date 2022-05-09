@@ -25,7 +25,7 @@ const AddTodo = () => {
   return (
     <div>
       <h1 className={classes.addTodo}>todos</h1>
-      <form onSubmit={todoSubmit}>
+      <form onSubmit={todoSubmit} className={classes.form}>
         <input
           type="text"
           placeholder="What needs to be done?"

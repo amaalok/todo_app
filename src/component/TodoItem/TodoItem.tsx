@@ -28,7 +28,7 @@ const TodoItem = (props: any) => {
           type="checkbox"
           id={classes.checkbox}
           onChange={handleCompleteClick}
-          checked={props.status ? true : false}
+          checked={props.status}
         />
         <label>{props.title}</label>
       </div>
