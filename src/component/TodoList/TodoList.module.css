@@ -1,0 +1,12 @@
+.actions {
+  display: flex;
+  justify-content: space-evenly;
+}
+.actions p:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgba(175, 47, 47, 0.15);
+}
+.todo-count {
+  text-align: center;
+}

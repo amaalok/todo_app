@@ -1,0 +1,31 @@
+.items {
+  display: flex;
+  justify-content: space-between;
+  max-width: 80%;
+  margin: 10px auto;
+}
+.items-name label {
+  margin-left: 2rem;
+  font-size: 20px;
+  cursor: pointer;
+}
+.remove-task-button {
+  border: none;
+  background: rgba(0, 0, 0, 0.009);
+  font-size: 20px;
+  color: rgb(209, 201, 201);
+}
+.remove-task-button:hover {
+  font-size: 22px;
+  color: rgb(126, 122, 122);
+  cursor: pointer;
+}
+[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.009);
+}
+input[type="checkbox"]#checkbox:checked + label {
+  text-decoration: line-through;
+  color: #666;
+}
