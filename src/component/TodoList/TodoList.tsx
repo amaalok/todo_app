@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import TodoItem from "../TodoItem/TodoItem";
 import { useDispatch } from "react-redux";
@@ -10,30 +10,48 @@ const TodoList = () => {
   let todos = useSelector((state: any) => {
     return state.todo;
   });
-  const [showTodo, setShowTodo] = useState(todos.todo);
-  const leftTodo = todos.todo.filter((todo: any) => todo.completed === false);
-  const completedTodo = todos.todo.filter(
-    (todo: any) => todo.completed === true
-  );
 
-  const showCompleted = () => setShowTodo(completedTodo);
-  const showActive = () => setShowTodo(leftTodo);
-  const showAllTodo = () => setShowTodo(todos.todo);
+  const [buttonState, setButtonState] = useState("ALL");
+
+  const leftTodo = useMemo(
+    () => todos.todo.filter((todo: any) => todo.completed === false),
+    [todos]
+  );
+  const completedTodo = useMemo(
+    () => todos.todo.filter((todo: any) => todo.completed === true),
+    [todos]
+  );
 
   const clearCompletedTasks = () => {
     dispatch(clearCompleted());
   };
 
-  let renderedListItem = showTodo.map((todo: any) => {
-    return (
-      <TodoItem
-        key={todo.id}
-        id={todo.id}
-        title={todo.name}
-        status={todo.completed}
-      />
+  const renderedListItem = useMemo(() => {
+    let renderTodo = null;
+    switch (buttonState) {
+      case "ALL":
+        renderTodo = todos.todo;
+        break;
+      case "ACTIVE":
+        renderTodo = todos.todo.filter((todo: any) => todo.completed === false);
+        break;
+      case "COMPLETED":
+        renderTodo = todos.todo.filter((todo: any) => todo.completed);
+        break;
+    }
+    return renderTodo.length ? (
+      renderTodo.map((todo: any) => (
+        <TodoItem
+          key={todo.id}
+          id={todo.id}
+          title={todo.name}
+          status={todo.completed}
+        />
+      ))
+    ) : (
+      <p className={classes.empty}>Nothing to show</p>
     );
-  });
+  }, [todos, buttonState]);
 
   return (
     <div className="tasks-list">
@@ -45,11 +63,13 @@ const TodoList = () => {
             className={classes["todo-count"]}
           >{`${leftTodo.length} items left`}</p>
           <div className={classes.actions}>
-            <p onClick={showAllTodo}>All</p>
-            <p onClick={showActive}>Active</p>
-            <p onClick={showCompleted}>Completed</p>
+            <button onClick={() => setButtonState("ALL")}>All</button>
+            <button onClick={() => setButtonState("ACTIVE")}>Active</button>
+            <button onClick={() => setButtonState("COMPLETED")}>
+              Completed
+            </button>
             {completedTodo.length > 0 && (
-              <p onClick={clearCompletedTasks}>Clear Completed</p>
+              <button onClick={clearCompletedTasks}>Clear Completed</button>
             )}
           </div>
         </div>
