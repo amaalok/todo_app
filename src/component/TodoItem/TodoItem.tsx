@@ -21,12 +21,12 @@ const TodoItem = (props: any) => {
       })
     );
   };
+  console.log(props.status);
   return (
     <div className={classes.items}>
       <div className={classes["items-name"]}>
         <input
           type="checkbox"
-          id={classes.checkbox}
           onChange={handleCompleteClick}
           checked={props.status}
         />
