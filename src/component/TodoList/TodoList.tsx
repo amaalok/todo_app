@@ -4,8 +4,10 @@ import TodoItem from "../TodoItem/TodoItem";
 import { useDispatch } from "react-redux";
 import { clearCompleted } from "../../redux/todoSlice";
 import classes from "./TodoList.module.css";
+import { useTranslation } from "react-i18next";
 
 const TodoList = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   let todos = useSelector((state: any) => {
     return state.todo;
@@ -49,9 +51,9 @@ const TodoList = () => {
         />
       ))
     ) : (
-      <p className={classes.empty}>Nothing to show</p>
+      <p className={classes.empty}>{t("Nothing to show")}</p>
     );
-  }, [todos, buttonState]);
+  }, [t, todos, buttonState]);
 
   return (
     <div className="tasks-list">
@@ -59,17 +61,21 @@ const TodoList = () => {
       {renderedListItem}
       {todos.todo.length > 0 && (
         <div>
-          <p
-            className={classes["todo-count"]}
-          >{`${leftTodo.length} items left`}</p>
+          <p className={classes["todo-count"]}>
+            {leftTodo.length} {t("items left")}
+          </p>
           <div className={classes.actions}>
-            <button onClick={() => setButtonState("ALL")}>All</button>
-            <button onClick={() => setButtonState("ACTIVE")}>Active</button>
+            <button onClick={() => setButtonState("ALL")}>{t("All")}</button>
+            <button onClick={() => setButtonState("ACTIVE")}>
+              {t("Active")}
+            </button>
             <button onClick={() => setButtonState("COMPLETED")}>
-              Completed
+              {t("Completed")}
             </button>
             {completedTodo.length > 0 && (
-              <button onClick={clearCompletedTasks}>Clear Completed</button>
+              <button onClick={clearCompletedTasks}>
+                {t("Clear Completed")}
+              </button>
             )}
           </div>
         </div>
