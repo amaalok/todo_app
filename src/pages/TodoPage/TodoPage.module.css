@@ -1,0 +1,12 @@
+.btn {
+  margin: 10px auto;
+  display: flex;
+  padding: 5px 20px;
+  border: 1px solid black;
+  border-radius: 2em;
+  text-decoration: none;
+  color: black;
+}
+.btn:hover {
+  padding: 7px 22px;
+}

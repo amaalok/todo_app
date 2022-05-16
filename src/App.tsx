@@ -1,12 +1,17 @@
 import React from "react";
-import AddTodo from "./component/AddTodo/AddTodo";
-import TodoList from "./component/TodoList/TodoList";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import TodoPage from "./pages/TodoPage/TodoPage";
+import NewsPage from "./pages/NewsPage/NewsPage";
 
 function App() {
   return (
     <div className="App">
-      <AddTodo />
-      <TodoList />
+      <Router>
+        <Routes>
+          <Route path="/" element={<TodoPage />} />
+          <Route path="/news" element={<NewsPage />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
