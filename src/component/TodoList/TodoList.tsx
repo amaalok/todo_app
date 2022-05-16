@@ -57,7 +57,6 @@ const TodoList = () => {
 
   return (
     <div className="tasks-list">
-      {console.log("render")}
       {renderedListItem}
       {todos.todo.length > 0 && (
         <div>

@@ -21,7 +21,6 @@ const TodoItem = (props: any) => {
       })
     );
   };
-  console.log(props.status);
   return (
     <div className={classes.items}>
       <div className={classes["items-name"]}>

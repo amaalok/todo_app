@@ -1,0 +1,30 @@
+.img {
+  width: 200px;
+  height: 200px;
+}
+.container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.description {
+  max-width: 200px;
+}
+.btn {
+  margin: 10px auto;
+  display: flex;
+  padding: 5px 20px;
+  border: 1px solid black;
+  border-radius: 2em;
+  text-decoration: none;
+  color: black;
+}
+.btn:hover {
+  padding: 7px 22px;
+}
+.btn-container {
+  display: flex;
+}
+.card {
+  cursor: pointer;
+}
